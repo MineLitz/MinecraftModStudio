@@ -171,15 +171,17 @@ class WorkspacePanel(QWidget):
         self.grid.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
         self.scroll.setWidget(self.container)
 
-        # Empty state
+        # Empty state — parented to container so Qt manages its lifetime
         self.empty_state = QLabel(
             "Nenhum elemento ainda\n\n"
             "Clique em  ➕ Novo Elemento  na barra de ferramentas\n"
-            "para começar a criar seu mod"
+            "para começar a criar seu mod",
+            self.container
         )
         self.empty_state.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.empty_state.setStyleSheet("color: #333; font-size: 13px; padding: 60px;")
         self.empty_state.setWordWrap(True)
+        self.empty_state.hide()
 
     def add_element(self, element: ModElement):
         card = ElementCard(element, self.container)
@@ -202,25 +204,28 @@ class WorkspacePanel(QWidget):
             self.cards[element.id].update_element(element)
 
     def _relayout(self):
-        # Remove all from grid
+        # Remove widgets from layout WITHOUT destroying them (no setParent)
         while self.grid.count():
-            item = self.grid.takeAt(0)
-            if item.widget():
-                item.widget().setParent(None)
+            self.grid.takeAt(0)
 
         visible = [c for c in self.cards.values()
                    if self._current_filter in ("all", c.element.etype)]
 
         if not visible:
-            self.grid.addWidget(self.empty_state, 0, 0, 1, 5)
             self.empty_state.show()
+            self.grid.addWidget(self.empty_state, 0, 0, 1, 5)
+            for card in self.cards.values():
+                card.hide()
             return
 
         self.empty_state.hide()
-        cols = max(1, self.scroll.viewport().width() // 148)
+        cols = max(1, max(self.scroll.viewport().width(), 148) // 148)
         for i, card in enumerate(visible):
             self.grid.addWidget(card, i // cols, i % cols)
             card.show()
+        for card in self.cards.values():
+            if card not in visible:
+                card.hide()
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
