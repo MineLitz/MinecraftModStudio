@@ -1,0 +1,152 @@
+import json
+import os
+import zipfile
+from core.workspace import Workspace
+from core.element import ModElement
+
+
+class Exporter:
+    def __init__(self, workspace: Workspace):
+        self.ws = workspace
+
+    def export_json_summary(self, output_dir: str) -> str:
+        """Exports a JSON summary of the mod (preview)."""
+        os.makedirs(output_dir, exist_ok=True)
+        path = os.path.join(output_dir, f"{self.ws.mod_id}_summary.json")
+        data = {
+            "mod_id": self.ws.mod_id,
+            "mod_name": self.ws.project_name,
+            "version": self.ws.version,
+            "minecraft_version": self.ws.mc_version,
+            "loader": self.ws.loader,
+            "author": self.ws.author,
+            "elements": [e.to_dict() for e in self.ws.elements],
+        }
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        return path
+
+    def export_structure(self, output_dir: str) -> str:
+        """Generates the Minecraft mod folder structure as a ZIP."""
+        mod_id = self.ws.mod_id
+        base = os.path.join(output_dir, mod_id + "_mod_structure")
+        os.makedirs(base, exist_ok=True)
+
+        # Folder structure
+        resources = os.path.join(base, "src", "main", "resources", "assets", mod_id)
+        data_dir  = os.path.join(base, "src", "main", "resources", "data", mod_id)
+        java_dir  = os.path.join(base, "src", "main", "java", mod_id)
+
+        for d in [
+            os.path.join(resources, "textures", "item"),
+            os.path.join(resources, "textures", "block"),
+            os.path.join(resources, "models", "item"),
+            os.path.join(resources, "models", "block"),
+            os.path.join(resources, "lang"),
+            os.path.join(data_dir, "recipes"),
+            os.path.join(data_dir, "loot_tables", "blocks"),
+            java_dir,
+        ]:
+            os.makedirs(d, exist_ok=True)
+
+        # lang/en_us.json
+        lang = {}
+        for el in self.ws.elements:
+            if el.etype == "item":
+                lang[f"item.{mod_id}.{el.registry_name}"] = el.name
+            elif el.etype == "block":
+                lang[f"block.{mod_id}.{el.registry_name}"] = el.name
+
+        with open(os.path.join(resources, "lang", "en_us.json"), "w", encoding="utf-8") as f:
+            json.dump(lang, f, indent=2, ensure_ascii=False)
+
+        # Item models
+        for el in [e for e in self.ws.elements if e.etype == "item"]:
+            model = {
+                "parent": "item/handheld",
+                "textures": {"layer0": f"{mod_id}:item/{el.registry_name}"}
+            }
+            with open(os.path.join(resources, "models", "item", f"{el.registry_name}.json"), "w", encoding="utf-8") as f:
+                json.dump(model, f, indent=2)
+
+        # Block models
+        for el in [e for e in self.ws.elements if e.etype == "block"]:
+            model = {
+                "parent": "block/cube_all",
+                "textures": {"all": f"{mod_id}:block/{el.registry_name}"}
+            }
+            with open(os.path.join(resources, "models", "block", f"{el.registry_name}.json"), "w", encoding="utf-8") as f:
+                json.dump(model, f, indent=2)
+            # blockstate
+            bs_dir = os.path.join(resources, "blockstates")
+            os.makedirs(bs_dir, exist_ok=True)
+            blockstate = {"variants": {"": {"model": f"{mod_id}:block/{el.registry_name}"}}}
+            with open(os.path.join(bs_dir, f"{el.registry_name}.json"), "w", encoding="utf-8") as f:
+                json.dump(blockstate, f, indent=2)
+
+        # Recipes
+        for el in [e for e in self.ws.elements if e.etype == "recipe"]:
+            recipe = {
+                "type": el.props.get("recipe_type", "minecraft:crafting_shaped"),
+                "result": {
+                    "item": f"{mod_id}:{el.props.get('result_item', 'unknown')}",
+                    "count": el.props.get("result_count", 1),
+                }
+            }
+            with open(os.path.join(data_dir, "recipes", f"{el.registry_name}.json"), "w", encoding="utf-8") as f:
+                json.dump(recipe, f, indent=2)
+
+        # mods.toml
+        mods_toml = f"""modLoader = "javafml"
+loaderVersion = "[{self.ws.mc_version},)"
+license = "MIT"
+
+[[mods]]
+modId = "{mod_id}"
+version = "{self.ws.version}"
+displayName = "{self.ws.project_name}"
+description = "{self.ws.description}"
+
+[[dependencies.{mod_id}]]
+    modId = "forge"
+    mandatory = true
+    versionRange = "[{self.ws.mc_version},)"
+    ordering = "NONE"
+    side = "BOTH"
+"""
+        meta_dir = os.path.join(base, "src", "main", "resources", "META-INF")
+        os.makedirs(meta_dir, exist_ok=True)
+        with open(os.path.join(meta_dir, "mods.toml"), "w", encoding="utf-8") as f:
+            f.write(mods_toml)
+
+        # README
+        readme = f"""# {self.ws.project_name}
+
+Generated by **Minecraft Mod Studio**
+
+- **Mod ID:** `{mod_id}`
+- **Version:** {self.ws.version}
+- **Minecraft:** {self.ws.mc_version}
+- **Loader:** {self.ws.loader}
+- **Author:** {self.ws.author}
+
+## Elements ({len(self.ws.elements)} total)
+{''.join(f"- {e.icon} **{e.name}** ({e.type_label})" + chr(10) for e in self.ws.elements)}
+
+## Next Steps
+1. Add your textures to `src/main/resources/assets/{mod_id}/textures/`
+2. Implement mob AI in the Java source files
+3. Build with Gradle: `./gradlew build`
+"""
+        with open(os.path.join(base, "README.md"), "w", encoding="utf-8") as f:
+            f.write(readme)
+
+        # ZIP everything
+        zip_path = os.path.join(output_dir, f"{mod_id}_mod.zip")
+        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
+            for root, dirs, files in os.walk(base):
+                for file in files:
+                    fp = os.path.join(root, file)
+                    zf.write(fp, os.path.relpath(fp, output_dir))
+
+        return zip_path
