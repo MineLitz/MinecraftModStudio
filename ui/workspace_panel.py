@@ -3,8 +3,80 @@ from PyQt6.QtWidgets import (
     QFrame, QGridLayout, QPushButton, QSizePolicy
 )
 from PyQt6.QtCore import Qt, pyqtSignal, QSize
-from PyQt6.QtGui import QFont, QColor
+from PyQt6.QtGui import QFont, QColor, QPixmap, QImage
 from core.element import ModElement, ELEMENT_TYPES
+
+
+class TextureCard(QFrame):
+    """Card for a modified texture in a Resource Pack project."""
+    clicked = pyqtSignal(str)  # emits key "mc_folder/tex_name"
+
+    def __init__(self, key: str, display_name: str, img: QImage, parent=None):
+        super().__init__(parent)
+        self.key          = key
+        self.display_name = display_name
+        self.selected     = False
+        self.setFixedSize(130, 120)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._build(img)
+        self._update_style()
+
+    def _build(self, img: QImage):
+        lay = QVBoxLayout(self)
+        lay.setContentsMargins(8, 8, 8, 6)
+        lay.setSpacing(4)
+        lay.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        # Texture preview
+        self._img_lbl = QLabel()
+        self._img_lbl.setFixedSize(64, 64)
+        self._img_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self._img_lbl.setStyleSheet(
+            "background:#141414;border:1px solid #2a2a2a;border-radius:4px;")
+        self.update_image(img)
+        lay.addWidget(self._img_lbl, alignment=Qt.AlignmentFlag.AlignCenter)
+
+        # Name
+        parts = self.key.split("/")
+        short = parts[-1].replace("_", " ")
+        name_lbl = QLabel(short[:16] + "…" if len(short) > 16 else short)
+        name_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        name_lbl.setStyleSheet(
+            "background:transparent;border:none;font-size:10px;color:#aaa;")
+        lay.addWidget(name_lbl)
+
+        # Category badge
+        cat = parts[0] if len(parts) > 1 else "texture"
+        badge = QLabel(cat.upper())
+        badge.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        badge.setStyleSheet(
+            "background:transparent;border:none;"
+            "color:#6ab84a;font-size:8px;font-weight:bold;letter-spacing:0.5px;")
+        lay.addWidget(badge)
+
+    def update_image(self, img: QImage):
+        px = QPixmap.fromImage(img).scaled(
+            64, 64,
+            Qt.AspectRatioMode.KeepAspectRatio,
+            Qt.TransformationMode.SmoothTransformation)
+        self._img_lbl.setPixmap(px)
+
+    def set_selected(self, v: bool):
+        self.selected = v
+        self._update_style()
+
+    def _update_style(self):
+        if self.selected:
+            self.setStyleSheet(
+                "QFrame{background:#1a2a10;border:2px solid #6ab84a;border-radius:8px;}")
+        else:
+            self.setStyleSheet(
+                "QFrame{background:#1e1e1e;border:1px solid #252525;border-radius:8px;}"
+                "QFrame:hover{background:#222;border-color:#363636;}")
+
+    def mousePressEvent(self, e):
+        if e.button() == Qt.MouseButton.LeftButton:
+            self.clicked.emit(self.key)
 
 
 class ElementCard(QFrame):
@@ -112,12 +184,15 @@ class ElementCard(QFrame):
 
 
 class WorkspacePanel(QWidget):
-    element_selected = pyqtSignal(object)
-    element_deleted = pyqtSignal(str)
+    element_selected     = pyqtSignal(object)
+    element_deleted      = pyqtSignal(str)
+    texture_card_clicked = pyqtSignal(str)  # key "mc_folder/tex_name"
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.cards: dict[str, ElementCard] = {}
+        self._tex_cards: dict[str, TextureCard] = {}
+        self._rp_mode = False
         self.selected_id: str | None = None
         self._build_ui()
 
@@ -191,6 +266,46 @@ class WorkspacePanel(QWidget):
         self.cards[element.id] = card
         self._relayout()
 
+    def add_texture_card(self, key: str, display_name: str, img: "QImage"):
+        """Add or update a texture card for resource pack mode."""
+        if key in self._tex_cards:
+            self._tex_cards[key].update_image(img)
+        else:
+            card = TextureCard(key, display_name, img, self.container)
+            card.clicked.connect(self.texture_card_clicked)
+            self._tex_cards[key] = card
+        self._relayout_textures()
+
+    def clear_texture_cards(self):
+        for card in self._tex_cards.values():
+            card.deleteLater()
+        self._tex_cards.clear()
+        self._relayout_textures()
+
+    def set_rp_mode(self, active: bool):
+        """Switch between mod-element mode and resource-pack texture mode."""
+        self._rp_mode = active
+        # Show/hide filter bar (not needed for RP)
+        for btn in self.filter_btns.values():
+            btn.parentWidget().setVisible(not active)
+        self._update_empty_state()
+        if active:
+            self._relayout_textures()
+        else:
+            self._relayout()
+
+    def _update_empty_state(self):
+        if self._rp_mode:
+            self.empty_state.setText(
+                "Nenhuma textura editada ainda\n\n"
+                "Vá para a aba  🎨 Resource Pack,\n"
+                "edite uma textura e clique  💾 Salvar no Projeto")
+        else:
+            self.empty_state.setText(
+                "Nenhum elemento ainda\n\n"
+                "Clique em  ➕ Novo Elemento  na barra de ferramentas\n"
+                "para começar a criar seu mod")
+
     def remove_element(self, element_id: str):
         if element_id in self.cards:
             card = self.cards.pop(element_id)
@@ -202,6 +317,22 @@ class WorkspacePanel(QWidget):
     def update_element(self, element: ModElement):
         if element.id in self.cards:
             self.cards[element.id].update_element(element)
+
+    def _relayout_textures(self):
+        """Layout texture cards for resource pack mode."""
+        while self.grid.count():
+            self.grid.takeAt(0)
+
+        if not self._tex_cards:
+            self.empty_state.show()
+            self.grid.addWidget(self.empty_state, 0, 0, 1, 5)
+            return
+
+        self.empty_state.hide()
+        cols = max(1, max(self.scroll.viewport().width(), 148) // 148)
+        for i, card in enumerate(self._tex_cards.values()):
+            self.grid.addWidget(card, i // cols, i % cols)
+            card.show()
 
     def _relayout(self):
         # Remove widgets from layout WITHOUT destroying them (no setParent)
@@ -229,7 +360,10 @@ class WorkspacePanel(QWidget):
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
-        self._relayout()
+        if self._rp_mode:
+            self._relayout_textures()
+        else:
+            self._relayout()
 
     @property
     def _current_filter(self):
@@ -264,3 +398,53 @@ class WorkspacePanel(QWidget):
         )
         if reply == QMessageBox.StandardButton.Yes:
             self.element_deleted.emit(eid)
+
+    # ── Resource Pack texture cards ───────────────────────────────────────────
+    def set_mode_resource_pack(self):
+        """Switch workspace to resource pack mode — show textures instead of elements."""
+        for btn in self.filter_btns.values():
+            btn.hide()
+        self.empty_state.setText(
+            "Nenhuma textura modificada ainda\n\n"
+            "Edite texturas na aba Resource Pack\n"
+            "e clique 'Salvar no Projeto'")
+        self._rp_mode = True
+        self._tex_cards: dict[str, TextureCard] = {}
+
+    def set_mode_mod(self):
+        """Switch back to mod mode."""
+        for btn in self.filter_btns.values():
+            btn.show()
+        self.empty_state.setText(
+            "Nenhum elemento ainda\n\n"
+            "Clique em  ➕ Novo Elemento  na barra de ferramentas\n"
+            "para começar a criar seu mod")
+        self._rp_mode = False
+
+    def add_texture_card(self, key: str, display_name: str, img: QImage):
+        """Add or update a texture card in RP mode."""
+        if not hasattr(self, "_tex_cards"):
+            self._tex_cards = {}
+        if key in self._tex_cards:
+            self._tex_cards[key].update_image(img)
+        else:
+            card = TextureCard(key, display_name, img, self.container)
+            card.clicked.connect(self.texture_card_clicked)
+            self._tex_cards[key] = card
+        self._relayout_rp()
+
+    def _relayout_rp(self):
+        while self.grid.count():
+            self.grid.takeAt(0)
+        tex_cards = getattr(self, "_tex_cards", {})
+        if not tex_cards:
+            self.empty_state.show()
+            self.grid.addWidget(self.empty_state, 0, 0, 1, 5)
+            return
+        self.empty_state.hide()
+        cols = max(1, max(self.scroll.viewport().width(), 148) // 148)
+        for i, card in enumerate(tex_cards.values()):
+            self.grid.addWidget(card, i // cols, i % cols)
+            card.show()
+
+    texture_card_clicked = pyqtSignal(str)  # key

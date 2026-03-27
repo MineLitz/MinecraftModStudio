@@ -1,0 +1,200 @@
+2026-03-22 17:36:29 [INFO   ] ============================================================
+2026-03-22 17:36:29 [INFO   ] Minecraft Mod Studio started — 2026-03-22 17:36:29.294530
+2026-03-22 17:36:29 [INFO   ] ============================================================
+2026-03-22 17:37:01 [INFO   ] MainWindow geometry restored
+2026-03-22 17:38:30 [INFO   ] MainWindow closed
+2026-03-22 17:38:31 [INFO   ] ============================================================
+2026-03-22 17:38:31 [INFO   ] Minecraft Mod Studio started — 2026-03-22 17:38:31.239498
+2026-03-22 17:38:31 [INFO   ] ============================================================
+2026-03-22 17:38:56 [INFO   ] MainWindow geometry restored
+2026-03-22 17:41:16 [INFO   ] MainWindow geometry restored
+2026-03-22 17:42:19 [INFO   ] MainWindow closed
+2026-03-22 17:47:28 [INFO   ] ============================================================
+2026-03-22 17:47:28 [INFO   ] Minecraft Mod Studio started — 2026-03-22 17:47:28.303308
+2026-03-22 17:47:28 [INFO   ] ============================================================
+2026-03-22 17:49:16 [INFO   ] ============================================================
+2026-03-22 17:49:16 [INFO   ] Minecraft Mod Studio started — 2026-03-22 17:49:16.675016
+2026-03-22 17:49:16 [INFO   ] ============================================================
+2026-03-22 17:49:21 [INFO   ] MainWindow geometry restored
+2026-03-22 17:54:45 [INFO   ] MainWindow closed
+2026-03-22 17:54:49 [INFO   ] ============================================================
+2026-03-22 17:54:49 [INFO   ] Minecraft Mod Studio started — 2026-03-22 17:54:49.625867
+2026-03-22 17:54:49 [INFO   ] ============================================================
+2026-03-22 17:54:55 [INFO   ] MainWindow geometry restored
+2026-03-22 18:02:32 [INFO   ] MainWindow closed
+2026-03-22 18:02:40 [INFO   ] ============================================================
+2026-03-22 18:02:40 [INFO   ] Minecraft Mod Studio started — 2026-03-22 18:02:40.170202
+2026-03-22 18:02:40 [INFO   ] ============================================================
+2026-03-22 18:02:48 [INFO   ] MainWindow geometry restored
+2026-03-22 18:07:25 [INFO   ] MainWindow closed
+2026-03-22 18:12:03 [INFO   ] ============================================================
+2026-03-22 18:12:03 [INFO   ] Minecraft Mod Studio started — 2026-03-22 18:12:03.095852
+2026-03-22 18:12:03 [INFO   ] ============================================================
+2026-03-22 18:12:08 [INFO   ] MainWindow geometry restored
+2026-03-22 22:10:29 [INFO   ] ============================================================
+2026-03-22 22:10:29 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:10:29.788507
+2026-03-22 22:10:29 [INFO   ] ============================================================
+2026-03-22 22:10:36 [INFO   ] MainWindow geometry restored
+2026-03-22 22:15:15 [INFO   ] MainWindow closed
+2026-03-22 22:15:18 [INFO   ] ============================================================
+2026-03-22 22:15:18 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:15:18.867573
+2026-03-22 22:15:18 [INFO   ] ============================================================
+2026-03-22 22:15:41 [INFO   ] ============================================================
+2026-03-22 22:15:41 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:15:41.063640
+2026-03-22 22:15:41 [INFO   ] ============================================================
+2026-03-22 22:16:11 [INFO   ] ============================================================
+2026-03-22 22:16:11 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:16:11.969921
+2026-03-22 22:16:11 [INFO   ] ============================================================
+2026-03-22 22:18:24 [INFO   ] ============================================================
+2026-03-22 22:18:24 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:18:24.830533
+2026-03-22 22:18:24 [INFO   ] ============================================================
+2026-03-22 22:18:36 [INFO   ] MainWindow geometry restored
+2026-03-22 22:21:56 [INFO   ] ============================================================
+2026-03-22 22:21:56 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:21:56.150269
+2026-03-22 22:21:56 [INFO   ] ============================================================
+2026-03-22 22:22:01 [INFO   ] MainWindow geometry restored
+2026-03-22 22:24:30 [INFO   ] ============================================================
+2026-03-22 22:24:30 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:24:30.172229
+2026-03-22 22:24:30 [INFO   ] ============================================================
+2026-03-22 22:24:30 [INFO   ] App started — Python 3.13.3
+2026-03-22 22:24:34 [INFO   ] MainWindow geometry restored
+2026-03-22 22:24:34 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-22 22:25:01 [CRITICAL] ============================================================
+2026-03-22 22:25:01 [CRITICAL] UNHANDLED EXCEPTION — app did not crash silently
+2026-03-22 22:25:01 [CRITICAL] Traceback (most recent call last):
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\mainwindow.py", line 572, in <lambda>
+    self.rp_panel._on_exported_from_image_editor(p)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\resource_pack_panel.py", line 602, in _on_exported_from_image_editor
+    shutil.copy2(tmp, dest)
+    ~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Usuário\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 453, in copy2
+    _winapi.CopyFile2(src_, dst_, flags)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] O sistema não pode encontrar o caminho especificado
+
+2026-03-22 22:25:01 [CRITICAL] ============================================================
+2026-03-22 22:25:23 [CRITICAL] ============================================================
+2026-03-22 22:25:23 [CRITICAL] UNHANDLED EXCEPTION — app did not crash silently
+2026-03-22 22:25:23 [CRITICAL] Traceback (most recent call last):
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\mainwindow.py", line 572, in <lambda>
+    self.rp_panel._on_exported_from_image_editor(p)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\resource_pack_panel.py", line 602, in _on_exported_from_image_editor
+    shutil.copy2(tmp, dest)
+    ~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Usuário\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 453, in copy2
+    _winapi.CopyFile2(src_, dst_, flags)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] O sistema não pode encontrar o caminho especificado
+
+2026-03-22 22:25:23 [CRITICAL] ============================================================
+2026-03-22 22:27:05 [CRITICAL] ============================================================
+2026-03-22 22:27:05 [CRITICAL] UNHANDLED EXCEPTION — app did not crash silently
+2026-03-22 22:27:05 [CRITICAL] Traceback (most recent call last):
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\mainwindow.py", line 572, in <lambda>
+    self.rp_panel._on_exported_from_image_editor(p)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\resource_pack_panel.py", line 602, in _on_exported_from_image_editor
+    shutil.copy2(tmp, dest)
+    ~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Usuário\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 453, in copy2
+    _winapi.CopyFile2(src_, dst_, flags)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] O sistema não pode encontrar o caminho especificado
+
+2026-03-22 22:27:05 [CRITICAL] ============================================================
+2026-03-22 22:27:26 [INFO   ] MainWindow closed
+2026-03-22 22:28:01 [INFO   ] ============================================================
+2026-03-22 22:28:01 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:28:01.663226
+2026-03-22 22:28:01 [INFO   ] ============================================================
+2026-03-22 22:28:02 [INFO   ] App started — Python 3.13.3
+2026-03-22 22:28:05 [INFO   ] MainWindow geometry restored
+2026-03-22 22:28:05 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-22 22:29:27 [ERROR  ] Erro em _save_to_project
+Traceback (most recent call last):
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\resource_pack_panel.py", line 619, in _save_to_project
+    shutil.copy2(tmp, dest)
+    ~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Usuário\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 453, in copy2
+    _winapi.CopyFile2(src_, dst_, flags)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] O sistema não pode encontrar o caminho especificado
+2026-03-22 22:29:30 [ERROR  ] Erro em _save_to_project
+Traceback (most recent call last):
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\resource_pack_panel.py", line 619, in _save_to_project
+    shutil.copy2(tmp, dest)
+    ~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Usuário\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 453, in copy2
+    _winapi.CopyFile2(src_, dst_, flags)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] O sistema não pode encontrar o caminho especificado
+2026-03-22 22:32:54 [INFO   ] MainWindow closed
+2026-03-22 22:33:20 [INFO   ] ============================================================
+2026-03-22 22:33:20 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:33:20.762220
+2026-03-22 22:33:20 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:33:20.762271
+2026-03-22 22:33:20 [INFO   ] ============================================================
+2026-03-22 22:33:20 [INFO   ] ============================================================
+2026-03-22 22:33:21 [INFO   ] App started — Python 3.13.3
+2026-03-22 22:33:27 [INFO   ] MainWindow geometry restored
+2026-03-22 22:33:27 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-22 22:34:04 [INFO   ] MainWindow geometry restored
+2026-03-22 22:34:04 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-22 22:38:36 [INFO   ] MainWindow closed
+2026-03-22 22:38:42 [INFO   ] ============================================================
+2026-03-22 22:38:42 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:38:42.318026
+2026-03-22 22:38:42 [INFO   ] ============================================================
+2026-03-22 22:38:42 [INFO   ] App started — Python 3.13.3
+2026-03-22 22:38:45 [INFO   ] MainWindow geometry restored
+2026-03-22 22:38:45 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-22 22:49:41 [INFO   ] MainWindow closed
+2026-03-22 22:50:15 [INFO   ] ============================================================
+2026-03-22 22:50:15 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:50:15.583889
+2026-03-22 22:50:15 [INFO   ] ============================================================
+2026-03-22 22:50:16 [INFO   ] App started — Python 3.13.3
+2026-03-22 22:50:22 [INFO   ] MainWindow geometry restored
+2026-03-22 22:50:22 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-22 22:55:12 [INFO   ] MainWindow closed
+2026-03-22 22:55:19 [INFO   ] ============================================================
+2026-03-22 22:55:19 [INFO   ] Minecraft Mod Studio started — 2026-03-22 22:55:19.386806
+2026-03-22 22:55:19 [INFO   ] ============================================================
+2026-03-22 22:55:19 [INFO   ] App started — Python 3.13.3
+2026-03-22 22:55:23 [INFO   ] MainWindow geometry restored
+2026-03-22 22:55:23 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-22 23:04:25 [INFO   ] MainWindow closed
+2026-03-22 23:04:41 [INFO   ] ============================================================
+2026-03-22 23:04:41 [INFO   ] Minecraft Mod Studio started — 2026-03-22 23:04:41.003359
+2026-03-22 23:04:41 [INFO   ] ============================================================
+2026-03-22 23:04:41 [INFO   ] App started — Python 3.13.3
+2026-03-22 23:04:53 [ERROR  ] Failed to open MainWindow
+Traceback (most recent call last):
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\main.py", line 105, in open_main
+    main_window = MainWindow(workspace)
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\mainwindow.py", line 126, in __init__
+    self._build_ui()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\mainwindow.py", line 225, in _build_ui
+    self.workspace_panel.texture_card_clicked.connect(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WorkspacePanel' object has no attribute 'texture_card_clicked'
+2026-03-22 23:04:53 [CRITICAL] ============================================================
+2026-03-22 23:04:53 [CRITICAL] UNHANDLED EXCEPTION — app did not crash silently
+2026-03-22 23:04:53 [CRITICAL] Traceback (most recent call last):
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\main.py", line 105, in open_main
+    main_window = MainWindow(workspace)
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\mainwindow.py", line 126, in __init__
+    self._build_ui()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\Usuário\Downloads\MinecraftModStudio\MinecraftModStudio\ui\mainwindow.py", line 225, in _build_ui
+    self.workspace_panel.texture_card_clicked.connect(
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'WorkspacePanel' object has no attribute 'texture_card_clicked'
+
+2026-03-22 23:04:53 [CRITICAL] ============================================================
+2026-03-22 23:05:48 [INFO   ] ============================================================
+2026-03-22 23:05:48 [INFO   ] Minecraft Mod Studio started — 2026-03-22 23:05:48.736089
+2026-03-22 23:05:48 [INFO   ] ============================================================
+2026-03-22 23:05:49 [INFO   ] App started — Python 3.13.3
+2026-03-22 23:05:54 [INFO   ] MainWindow geometry restored
+2026-03-22 23:05:55 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-22 23:12:44 [INFO   ] MainWindow closed

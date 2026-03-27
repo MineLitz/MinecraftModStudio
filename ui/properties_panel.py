@@ -264,7 +264,13 @@ class PropertiesPanel(QWidget):
         self._widgets.clear()
         while self.content_layout.count() > 1:  # keep stretch
             item = self.content_layout.takeAt(0)
-            if item.widget():
-                item.widget().deleteLater()
-        self.content_layout.insertWidget(0, self.empty_lbl)
+            w = item.widget()
+            if w is None:
+                continue
+            if w is self.empty_lbl:
+                continue  # nunca destruir o empty_lbl
+            w.deleteLater()
+        # Garante que empty_lbl está no layout
+        if self.content_layout.indexOf(self.empty_lbl) == -1:
+            self.content_layout.insertWidget(0, self.empty_lbl)
         self.empty_lbl.show()

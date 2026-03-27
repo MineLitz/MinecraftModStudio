@@ -7,6 +7,7 @@ from core.element import ModElement
 class Workspace:
     def __init__(self):
         self.project_name: str = ""
+        self.project_type: str = "mod"  # "mod" | "resource_pack"
         self.mod_id: str = ""
         self.version: str = "1.0.0"
         self.mc_version: str = "1.21"
@@ -18,8 +19,10 @@ class Workspace:
         self.dirty: bool = False
 
     def new_project(self, name: str, mod_id: str, mc_version: str,
-                    loader: str, author: str = "", description: str = ""):
+                    loader: str, author: str = "", description: str = "",
+                    project_type: str = "mod"):
         self.project_name = name
+        self.project_type = project_type
         self.mod_id = mod_id
         self.mc_version = mc_version
         self.loader = loader
@@ -52,6 +55,7 @@ class Workspace:
     def save(self, path: str):
         data = {
             "project_name": self.project_name,
+            "project_type": self.project_type,
             "mod_id": self.mod_id,
             "version": self.version,
             "mc_version": self.mc_version,
@@ -69,6 +73,7 @@ class Workspace:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         self.project_name = data.get("project_name", "")
+        self.project_type = data.get("project_type", "mod")
         self.mod_id = data.get("mod_id", "")
         self.version = data.get("version", "1.0.0")
         self.mc_version = data.get("mc_version", "1.21")
