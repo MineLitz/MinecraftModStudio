@@ -198,3 +198,10 @@ AttributeError: 'WorkspacePanel' object has no attribute 'texture_card_clicked'
 2026-03-22 23:05:54 [INFO   ] MainWindow geometry restored
 2026-03-22 23:05:55 [INFO   ] MainWindow opened for project: ResourcePackTest
 2026-03-22 23:12:44 [INFO   ] MainWindow closed
+2026-03-27 22:04:45 [INFO   ] ============================================================
+2026-03-27 22:04:45 [INFO   ] Minecraft Mod Studio started — 2026-03-27 22:04:45.509364
+2026-03-27 22:04:45 [INFO   ] ============================================================
+2026-03-27 22:04:46 [INFO   ] App started — Python 3.13.3
+2026-03-27 22:04:52 [INFO   ] MainWindow geometry restored
+2026-03-27 22:04:52 [INFO   ] MainWindow opened for project: ResourcePackTest
+2026-03-27 22:22:26 [INFO   ] MainWindow closed

@@ -222,6 +222,32 @@ class MainWindow(QMainWindow):
         try: self.center_tabs.setTabIcon(3, ic.tab_pixel_art())
         except Exception: pass
 
+        # Tab 4: Animation Editor
+        from ui.animation_editor import AnimationEditorDialog
+        from PyQt6.QtWidgets import QWidget as _QWidget, QVBoxLayout as _QVL, QLabel as _QL, QPushButton as _QPB
+        anim_placeholder = _QWidget()
+        anim_ph_lay = _QVL(anim_placeholder)
+        anim_ph_lay.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        anim_ph_lbl = _QL("🎬  Editor de Animações")
+        anim_ph_lbl.setStyleSheet("font-size:18px; color:#6ab84a; font-weight:bold;")
+        anim_ph_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        anim_ph_sub = _QL("Crie e edite texturas animadas (.mcmeta)\ncomo lava, água e portais.")
+        anim_ph_sub.setStyleSheet("font-size:12px; color:#666; margin-top:6px;")
+        anim_ph_sub.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        anim_ph_btn = _QPB("➕  Nova Animação")
+        anim_ph_btn.setFixedWidth(180)
+        anim_ph_btn.setStyleSheet(
+            "background:#1a3a10; color:#6ab84a; border:1px solid #3a6a20;"
+            "border-radius:6px; padding:8px; font-size:13px; margin-top:16px;"
+        )
+        anim_ph_btn.clicked.connect(self.open_animation_editor)
+        anim_ph_lay.addWidget(anim_ph_lbl)
+        anim_ph_lay.addWidget(anim_ph_sub)
+        anim_ph_lay.addWidget(anim_ph_btn, alignment=Qt.AlignmentFlag.AlignCenter)
+        self.center_tabs.addTab(anim_placeholder, "Animações")
+        try: self.center_tabs.setTabIcon(4, ic.tab_pixel_art())
+        except Exception: pass
+
         self.workspace_panel.texture_card_clicked.connect(
             self._on_workspace_texture_click)
 
@@ -329,6 +355,7 @@ class MainWindow(QMainWindow):
             (1, "Pixel Art",     "Ctrl+2"),
             (2, "Receita",       "Ctrl+3"),
             (3, "Resource Pack", "Ctrl+4"),
+            (4, "Animações",     "Ctrl+5"),
         ]
         for idx, label, key in tab_defs:
             a = QAction(label, self)
@@ -349,11 +376,12 @@ class MainWindow(QMainWindow):
 
         # Tools
         tools_menu = mb.addMenu("Ferramentas")
-        action(tools_menu, "Validar Mod",          self.validate_mod,   ic.menu_validate, "Ctrl+Shift+V")
+        action(tools_menu, "Validar Mod",          self.validate_mod,        ic.menu_validate, "Ctrl+Shift+V")
+        action(tools_menu, "Editor de Animações",  self.open_animation_editor, ic.menu_plugins, "Ctrl+Shift+A")
         action(tools_menu, "Gerenciador de Plugins",
                lambda: self._show_coming_soon("Gerenciador de Plugins"), ic.menu_plugins)
         tools_menu.addSeparator()
-        action(tools_menu, "Preferências",         self.open_settings,  ic.menu_preferences)
+        action(tools_menu, "Preferências",         self.open_settings,       ic.menu_preferences)
 
         # Plugins
         plugins_menu = mb.addMenu("Plugins")
@@ -405,6 +433,8 @@ class MainWindow(QMainWindow):
              tooltip="Build do Mod (Ctrl+B)",          callback=self.build_mod)
         tbtn("Exportar",     ic.toolbar_export,      name="btn_export",
              tooltip="Exportar Estrutura do Mod",      callback=self.export_mod)
+        tbtn("Animações",    ic.toolbar_export,      name="btn_animations",
+             tooltip="Editor de Animações (Ctrl+Shift+A)", callback=self.open_animation_editor)
 
         # Spacer
         spacer = QWidget()
@@ -662,6 +692,35 @@ class MainWindow(QMainWindow):
             self._update_status()
             self.setWindowTitle(self._window_title())
             self.log(f"➕ {el.icon} '{el.name}' criado ({el.type_label})", "#7ec850")
+
+    def open_animation_editor(self):
+        """Abre o editor de texturas animadas (Sprint 3)."""
+        if not self.workspace.project_name:
+            QMessageBox.information(self, "Info", "Crie ou abra um projeto primeiro.")
+            return
+
+        from ui.animation_editor import AnimationEditorDialog
+
+        if not hasattr(self.workspace, "animations"):
+            self.workspace.animations = []
+
+        dlg = AnimationEditorDialog(parent=self)
+        if dlg.exec():
+            anim = dlg.animation
+            tex_type = "block"   # padrão; pode evoluir para um QComboBox no diálogo
+            self.workspace.animations.append((anim, tex_type))
+            self.workspace.dirty = True
+            self.setWindowTitle(self._window_title())
+            self.log(
+                f"🎬 Animação '{anim.name}' adicionada "
+                f"({anim.frame_count} frames, frametime={anim.frametime})",
+                "#6ab84a"
+            )
+            # Muda para a aba de Animações
+            self.center_tabs.setTabVisible(4, True)
+            self.center_tabs.setCurrentIndex(4)
+            if 4 in self._tab_actions:
+                self._tab_actions[4].setChecked(True)
 
     def build_mod(self):
         if not self.workspace.project_name:
