@@ -1,100 +1,145 @@
-# ⛏ Minecraft Mod Studio
+# Minecraft Mod Studio
 
-Criador visual de mods para **Minecraft Java Edition** — sem precisar escrever código.
+![Status](https://img.shields.io/badge/status-alpha-orange)
+![Version](https://img.shields.io/badge/version-in%20development-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
----
+Minecraft Mod Studio is a tool in active development focused on simplifying the creation of mods and addons for Minecraft, especially for Bedrock Edition. It aims to provide a lightweight, intuitive, and accessible experience for creators of all levels.
 
-## 🚀 Como Executar (Windows)
-
-### 1. Instalar Python
-Baixe e instale o Python 3.11+ em: https://www.python.org/downloads/
-
-> ⚠️ **IMPORTANTE:** Durante a instalação, marque a opção **"Add Python to PATH"**
-
-### 2. Instalar Dependências
-Dê duplo clique em `install.bat`
-
-### 3. Executar o App
-Dê duplo clique em `run.bat`
+> This project is currently in Alpha. Bugs, instability, and frequent changes are expected.
 
 ---
 
-## 📋 Requisitos
+## Table of Contents
 
-| Requisito     | Versão Mínima |
-|---------------|---------------|
-| Python        | 3.11+         |
-| PyQt6         | 6.6.0+        |
-| Windows       | 10 / 11       |
-| RAM           | 256 MB+       |
-
----
-
-## 🎮 Funcionalidades
-
-- **Tela de boas-vindas** com projetos recentes
-- **Workspace visual** — cards para cada elemento do mod
-- **8 tipos de elementos:** Itens, Blocos, Mobs, Receitas, Biomas, Encantos, Poções, Comandos
-- **Painel de propriedades** — edite tudo visualmente
-- **Sidebar com árvore** de elementos e busca
-- **Console integrado** com feedback em tempo real
-- **Exportação** da estrutura completa do mod (ZIP)
-- **Salvar/Abrir projetos** no formato `.mms`
-- **Sistema de plugins** (pasta `plugins/`)
+* [About](#about)
+* [Status](#status)
+* [Screenshots](#screenshots)
+* [Roadmap](#roadmap)
+* [Versioning System](#versioning-system)
+* [Planned Features](#planned-features)
+* [Installation](#installation)
+* [Contributing](#contributing)
+* [License](#license)
 
 ---
 
-## 📁 Estrutura do Projeto
+## About
+
+Minecraft Mod Studio is designed to make mod creation easier without requiring advanced programming knowledge. The focus is on usability, performance, and accessibility.
+
+Core principles:
+
+* Lightweight performance (low RAM usage)
+* Intuitive interface
+* Structured mod creation system
+* Simple export process (.mcaddon)
+
+---
+
+## Status
+
+* Under development
+* Alpha testing phase
+* Frequent updates planned
+
+---
+
+## Screenshots
+
+### Texture Editor Interface
+
+![Texture Editor](./assets/screenshot-1.png)
+
+## Roadmap
+
+Full roadmap:
+[https://minecraftmodstudio.github.io/mmswebsite/](https://minecraftmodstudio.github.io/mmswebsite/)
+
+### Development Focus
+
+* Core system foundation
+* User interface development
+* Item and mob creation systems
+* Addon export system
+* Performance optimization
+* Advanced features (future updates)
+
+---
+
+## Versioning System
+
+The project uses a custom versioning system based on Sprints and Fixes.
+
+### Sprints (Updates)
+
+Sprints represent major updates.
 
 ```
-MinecraftModStudio/
-├── main.py                 ← Ponto de entrada
-├── requirements.txt        ← Dependências Python
-├── install.bat             ← Instalar dependências (Windows)
-├── run.bat                 ← Executar o app (Windows)
-├── core/
-│   ├── element.py          ← Modelo de dados dos elementos
-│   ├── workspace.py        ← Gerenciamento do projeto
-│   └── exporter.py         ← Exportação do mod
-├── ui/
-│   ├── theme.py            ← Tema escuro (QSS)
-│   ├── welcome_screen.py   ← Tela de boas-vindas
-│   ├── mainwindow.py       ← Janela principal
-│   ├── workspace_panel.py  ← Cards dos elementos
-│   ├── properties_panel.py ← Painel de propriedades
-│   └── dialogs/
-│       ├── new_project_dialog.py
-│       └── new_element_dialog.py
-└── plugins/                ← Pasta para plugins externos
+Sprint 1 = Update 1
+Sprint 2 = Update 2
+...
+```
+
+Each sprint introduces new features, improvements, and system changes.
+
+---
+
+### Fixes (Bug Fixes)
+
+Fixes represent daily corrections.
+
+Format:
+
+```
+<day>.<number_of_fixes>
+```
+
+Examples:
+
+```
+15.0  -> Day 15 with no fixes
+15.3  -> Day 15 with 3 fixes
 ```
 
 ---
 
-## 🔌 Sistema de Plugins
+## Planned Features
 
-Coloque arquivos `.py` na pasta `plugins/` para adicionar funcionalidades.
-*(em desenvolvimento)*
-
----
-
-## ⌨️ Atalhos de Teclado
-
-| Atalho         | Ação                    |
-|----------------|-------------------------|
-| `Ctrl+N`       | Novo Projeto            |
-| `Ctrl+O`       | Abrir Projeto           |
-| `Ctrl+S`       | Salvar                  |
-| `Ctrl+E`       | Novo Elemento           |
-| `Ctrl+B`       | Build do Mod            |
-| `Ctrl+Shift+E` | Exportar Estrutura      |
+* Texture editor
+* Mob creator
+* Item creator
+* Block creator
+* File management system
+* Automatic export (.mcaddon)
+* Testing tools
 
 ---
 
-## ⚠️ Aviso
+## Installation
 
-Este é um projeto não oficial. Não possui afiliação com Mojang ou Microsoft.
-Minecraft® é marca registrada da Mojang Studios.
+Not available yet.
+
+Installation instructions will be provided once a public version is released.
 
 ---
 
-*Desenvolvido com ❤️ usando Python + PyQt6*
+## Contributing
+
+Contributions are welcome, especially during early development.
+
+You can help by:
+
+* Reporting bugs
+* Suggesting features
+* Testing experimental versions
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+See the `LICENSE` file for more details.
+* adicionar layout com várias imagens lado a lado (quando tiver mais)
+* ou deixar estilo README de projeto top (nível open source grande)
