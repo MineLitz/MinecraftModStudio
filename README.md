@@ -45,12 +45,6 @@ Core principles:
 
 ---
 
-## Screenshots
-
-### Texture Editor Interface
-
-![Texture Editor](./assets/screenshot-1.png)
-
 ## Roadmap
 
 Full roadmap:
