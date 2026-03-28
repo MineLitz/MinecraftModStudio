@@ -4,7 +4,7 @@
 ![Version](https://img.shields.io/badge/version-in%20development-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-Minecraft Mod Studio is a tool in active development focused on simplifying the creation of mods and addons for Minecraft, especially for Bedrock Edition. It aims to provide a lightweight, intuitive, and accessible experience for creators of all levels.
+Minecraft Mod Studio is a tool in active development focused on simplifying the creation of mods and addons for Minecraft. It aims to provide a lightweight, intuitive, and accessible experience for creators of all levels.
 
 > This project is currently in Alpha. Bugs, instability, and frequent changes are expected.
 
