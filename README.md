@@ -135,5 +135,3 @@ You can help by:
 This project is licensed under the MIT License.
 
 See the `LICENSE` file for more details.
-* adicionar layout com várias imagens lado a lado (quando tiver mais)
-* ou deixar estilo README de projeto top (nível open source grande)
