@@ -118,6 +118,19 @@ Installation instructions will be provided once a public version is released.
 
 ---
 
+## Testing
+
+You can test the application locally on Windows by following these steps:
+
+1. Run the `install.bat` file to install all required dependencies.
+2. After the installation is complete, run the `run.bat` file.
+
+This will launch the application, allowing you to explore its current state and features.
+
+> Note: Testing is currently available for Windows only.
+
+---
+
 ## Contributing
 
 Contributions are welcome, especially during early development.
