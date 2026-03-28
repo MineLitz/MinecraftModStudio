@@ -2,20 +2,54 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This project is currently in active development (Alpha).
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+Security updates are applied to the latest version only. Older versions are not supported.
+
+| Version | Supported |
+|---------|----------|
+| Latest  | Yes      |
+| Older   | No       |
+
+---
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+If you discover a security vulnerability, please report it responsibly.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+### How to report
+
+- Open an issue on this repository (if the vulnerability is not sensitive), or  
+- Contact the maintainer privately (if applicable)
+
+Please include:
+
+- A clear description of the issue  
+- Steps to reproduce the vulnerability  
+- Possible impact  
+- Screenshots or proof of concept (if available)  
+
+---
+
+## Response Time
+
+As this project is in early development, response times may vary.
+
+However, reported vulnerabilities will be reviewed and addressed as soon as possible.
+
+---
+
+## Scope
+
+This security policy applies to:
+
+- The Minecraft Mod Studio application  
+- Related scripts (such as install.bat and run.bat)  
+- Any official releases of the project  
+
+---
+
+## Notes
+
+- Do not publicly disclose vulnerabilities before they are reviewed and addressed  
+- This project is provided "as is" under the MIT License  
